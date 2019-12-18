@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.tugas_besar.apihelper.BaseApiService;
 import com.example.tugas_besar.apihelper.SharedPrefManager;
 import com.example.tugas_besar.apihelper.UtilsApi;
+import com.example.tugas_besar.dosen.KelasDosenActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,18 +40,17 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        mContext = this;
-        mApiService = UtilsApi.getAPIService(); // meng-init yang ada di package apihelper
-        initComponents();
         sharedPrefManager = new SharedPrefManager(this);
+        super.onCreate(savedInstanceState);
+        if (sharedPrefManager.getToken().equals("")){
+            setContentView(R.layout.activity_login);
 
-        if (sharedPrefManager.getSPSudahLogin()){
-            startActivity(new Intent(LoginActivity.this, MainActivity.class)
-                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-            finish();
+            mContext = this;
+            mApiService = UtilsApi.getAPIService(); // meng-init yang ada di package apihelper
+            initComponents();
+        }else {
+            Intent intent = new Intent(LoginActivity.this, KelasDosenActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -59,7 +59,6 @@ public class LoginActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         textLogin = (TextView) findViewById(R.id.textLogin);
         b_login = (Button) findViewById(R.id.b_login);
-
         b_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,10 +77,10 @@ public class LoginActivity extends AppCompatActivity {
                             try {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
                                 Toast.makeText(mContext, "BERHASIL LOGIN", Toast.LENGTH_SHORT).show();
-                                sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
-                                Intent intent = new Intent(mContext, MainActivity.class);
+                                String token = "Bearer "+jsonRESULTS.getString("access_token");
+                                sharedPrefManager.saveToken(token);
+                                Intent intent = new Intent(mContext, KelasDosenActivity.class);
                                 startActivity(intent);
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } catch (IOException e) {
@@ -96,7 +95,6 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         Log.e("debug", "onFailure: ERROR > " + t.toString());
-
                     }
                 });
     }
