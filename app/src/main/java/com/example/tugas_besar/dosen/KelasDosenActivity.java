@@ -78,7 +78,7 @@ public class KelasDosenActivity extends AppCompatActivity {
                                     @Override
                                     public void onItemClick(JSONObject item){
                                         sharedPrefManager.saveToken(accessToken);
-                                        Intent intent = new Intent(KelasDosenActivity.this, DetailKelasDosenActivity.class);
+                                        Intent intent = new Intent(KelasDosenActivity.this, mahasiswaKelasDosenActivity.class);
                                         intent.putExtra("data", item.toString());
                                         startActivity(intent);
                                     }
