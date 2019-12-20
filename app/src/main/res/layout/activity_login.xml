@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/sp_level"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="170dp"
@@ -60,9 +60,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="76dp"
         android:text="Login"
-        app:layout_constraintEnd_toEndOf="@+id/spinner"
+        app:layout_constraintEnd_toEndOf="@+id/sp_level"
         app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/sp_level" />
 
     <TextView
         android:id="@+id/textUser"

@@ -12,8 +12,18 @@ public interface BaseApiService {
     // Fungsi ini untuk memanggil API api/login/dosen
     @FormUrlEncoded
     @POST("api/login/dosen")
-    Call<ResponseBody> loginRequest(@Field("username") String username,
+    Call<ResponseBody> logindosen(@Field("username") String username,
                                     @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("api/login/users")
+    Call<ResponseBody> loginmahasiswa(@Field("username") String username,
+                                  @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("api/login/admin")
+    Call<ResponseBody> loginpengawas(@Field("username") String username,
+                                  @Field("password") String password);
 
     //Fungsi ini untuk mengambil data kelas dosen
     @POST("api/kartu-ujian/kelasdosen")

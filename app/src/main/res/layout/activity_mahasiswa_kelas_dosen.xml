@@ -82,6 +82,7 @@
                 android:id="@+id/waktu"/>
 
         </LinearLayout>
+
         <Button
             android:id="@+id/button_absen"
             android:layout_width="match_parent"

@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,14 +34,14 @@ import retrofit2.Response;
 public class mahasiswaKelasDosenActivity extends AppCompatActivity {
 
     TextView kelas, tanggal, ruangan, waktu;
+    Button button_absen;
     private RecyclerView rv_list_detail_kelas;
     RecyclerView.LayoutManager lm = new LinearLayoutManager(this);
-    BaseApiService mApiService;
     SharedPrefManager sharedPrefManager;
-    Context mContext;
-    JSONArray classes;
     RecyclerView.Adapter iAdapter;
     BaseApiService baseApiService;
+    Context mContext;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,16 +52,23 @@ public class mahasiswaKelasDosenActivity extends AppCompatActivity {
             startActivity(intent);
         } else{
             setContentView(R.layout.activity_mahasiswa_kelas_dosen);
-
+            mContext = this;
             try {
                 Intent intent = getIntent();
                 JSONObject kelasDetail = new JSONObject(Objects.requireNonNull(intent.getStringExtra("data")));
                 initComponents(kelasDetail);
                 getDetailKelas(sharedPrefManager.getToken(), kelasDetail.getInt("kelas_id"));
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void openabsen(){
+        Intent intent = new Intent(mContext, AbsenActivity.class);
+        startActivity(intent);
+
     }
 
     private void initComponents(JSONObject kelasDetail) {
@@ -77,6 +86,8 @@ public class mahasiswaKelasDosenActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
     }
 
     private void getDetailKelas(String token, int kelas_id) {

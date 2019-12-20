@@ -7,6 +7,7 @@ public class SharedPrefManager {
 
     public static final String SP_PMOB_APP = "spPMOBApp";
     private static final String SP_TOKEN = null;
+    private static final String SP_level = null;
 
     public static final String SP_SUDAH_LOGIN = "spSudahLogin";
 
@@ -25,6 +26,15 @@ public class SharedPrefManager {
 
     public String getToken(){
         return sp.getString(SP_TOKEN, "");
+    }
+
+    public void savelevel(String s){
+        spEditor.putString(SP_level, s);
+        spEditor.commit();
+    }
+
+    public String getlevel(){
+        return sp.getString(SP_level, "");
     }
 
 }
