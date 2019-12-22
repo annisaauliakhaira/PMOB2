@@ -12,13 +12,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tugas_besar.apihelper.BaseApiService;
 import com.example.tugas_besar.apihelper.SharedPrefManager;
 import com.example.tugas_besar.apihelper.UtilsApi;
 import com.example.tugas_besar.dosen.KelasDosenActivity;
+import com.example.tugas_besar.mahasiswa.ListUjianActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,11 +32,9 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    EditText username;
+    EditText username, password;
     Spinner sp_level;
-    EditText password;
     Button b_login;
-    TextView textLogin;
     String[] pilihan = { "Mahasiswa", "Dosen", "Pengawas" };
     String level;
     Context mContext;
@@ -53,8 +51,11 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
             mContext = this;
             mApiService = UtilsApi.getAPIService(); // meng-init yang ada di package apihelper
             initComponents();
-        }else {
+        }else if (level.equals("Dosen")){
             Intent intent = new Intent(LoginActivity.this, KelasDosenActivity.class);
+            startActivity(intent);
+        }else if (level.equals("Mahasiswa")){
+            Intent intent = new Intent(LoginActivity.this, ListUjianActivity.class);
             startActivity(intent);
         }
     }
@@ -62,7 +63,6 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     private void initComponents() {
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
-        textLogin = (TextView) findViewById(R.id.textLogin);
         b_login = (Button) findViewById(R.id.b_login);
 
         sp_level = (Spinner) findViewById(R.id.sp_level);
@@ -135,19 +135,14 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()){
-
                             try {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
                                 Toast.makeText(mContext, "BERHASIL LOGIN", Toast.LENGTH_SHORT).show();
                                 String token = "Bearer "+jsonRESULTS.getString("access_token");
                                 sharedPrefManager.saveToken(token);
-                                Toast.makeText(mContext, "Selamat Datang Mahasiswa", Toast.LENGTH_SHORT).show();
-
-//                                Intent intent = new Intent(mContext, KelasDosenActivity.class);
-//                                startActivity(intent);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
+                                Intent Intent2 = new Intent(mContext, ListUjianActivity.class);
+                                startActivity(Intent2);
+                            } catch (JSONException | IOException e){
                                 e.printStackTrace();
                             }
                         } else {

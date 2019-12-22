@@ -15,7 +15,7 @@ public interface BaseApiService {
     Call<ResponseBody> logindosen(@Field("username") String username,
                                     @Field("password") String password);
 
-    @FormUrlEncoded
+       @FormUrlEncoded
     @POST("api/login/users")
     Call<ResponseBody> loginmahasiswa(@Field("username") String username,
                                   @Field("password") String password);
@@ -32,4 +32,9 @@ public interface BaseApiService {
     //Fungsi ini untuk mengambil data mahasiswa dalam 1 kelas
     @POST("api/kartu-ujian/mhskelas/{kelas_id}")
     Call<ResponseBody> getDetailKelas(@Header("Authorization") String authToken, @Path("kelas_id") String kelas_id);
+
+    @POST("api/kartu-ujian/kelasmhs")
+    Call<ResponseBody> getClassMhs(@Header("Authorization") String authToken);
+
+
 }
