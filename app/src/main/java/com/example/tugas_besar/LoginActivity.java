@@ -19,6 +19,7 @@ import com.example.tugas_besar.apihelper.SharedPrefManager;
 import com.example.tugas_besar.apihelper.UtilsApi;
 import com.example.tugas_besar.dosen.KelasDosenActivity;
 import com.example.tugas_besar.mahasiswa.ListUjianActivity;
+import com.example.tugas_besar.pengawas.KelasPengawas;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,6 +57,9 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
             startActivity(intent);
         }else if (level.equals("Mahasiswa")){
             Intent intent = new Intent(LoginActivity.this, ListUjianActivity.class);
+            startActivity(intent);
+        }else if (level.equals("Pengawas")){
+            Intent intent = new Intent(LoginActivity.this, KelasPengawas.class);
             startActivity(intent);
         }
     }
@@ -171,8 +175,8 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
                                 String token = "Bearer "+jsonRESULTS.getString("access_token");
                                 sharedPrefManager.saveToken(token);
                                 Toast.makeText(mContext, "Selamat Datang Pengawas", Toast.LENGTH_SHORT).show();
-//                                Intent intent = new Intent(mContext, KelasDosenActivity.class);
-//                                startActivity(intent);
+                                Intent intent3 = new Intent(mContext, KelasPengawas.class);
+                                startActivity(intent3);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } catch (IOException e) {

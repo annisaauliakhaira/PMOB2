@@ -36,5 +36,14 @@ public interface BaseApiService {
     @POST("api/kartu-ujian/kelasmhs")
     Call<ResponseBody> getClassMhs(@Header("Authorization") String authToken);
 
+    //Fungsi ini untuk mengambil data kelas pengawas
+    @POST("api/kartu-ujian/kelasadmin")
+    Call<ResponseBody> getClassPengawas(@Header("Authorization") String authToken);
+
+    //Fungsi ini untuk mengambil data mahasiswa yang diawasi pengawas
+    @POST("api/kartu-ujian/mhsruang/{kelas_id}/{ruangan_id")
+    Call<ResponseBody> getMhsPengawas(@Header("Authorization") String authToken, @Path("kelas_id") String kelas_id,
+                                      @Path("ruangan_id") String ruangan_id);
+
 
 }
