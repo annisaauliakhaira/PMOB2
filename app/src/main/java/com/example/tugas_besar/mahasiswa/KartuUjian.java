@@ -79,5 +79,5 @@ public class KartuUjian extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    
+
 }
