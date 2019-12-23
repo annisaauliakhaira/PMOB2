@@ -1,5 +1,6 @@
 package com.example.tugas_besar.dosen;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +9,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.tugas_besar.LoginActivity;
@@ -15,6 +19,7 @@ import com.example.tugas_besar.R;
 import com.example.tugas_besar.apihelper.BaseApiService;
 import com.example.tugas_besar.apihelper.SharedPrefManager;
 import com.example.tugas_besar.apihelper.UtilsApi;
+import com.example.tugas_besar.mahasiswa.ListUjianActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,6 +59,25 @@ public class KelasDosenActivity extends AppCompatActivity {
             mApiService = UtilsApi.getAPIService();
             refresh();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.optionmenu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+        if(item.getItemId() == R.id.id_logout){
+            sharedPrefManager.saveToken("");
+            Toast.makeText(KelasDosenActivity.this, "Berhasil logout", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(KelasDosenActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initComponents() {

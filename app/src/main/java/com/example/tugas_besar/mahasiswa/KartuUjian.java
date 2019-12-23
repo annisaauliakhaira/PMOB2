@@ -1,14 +1,21 @@
 package com.example.tugas_besar.mahasiswa;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.tugas_besar.LoginActivity;
 import com.example.tugas_besar.R;
+import com.example.tugas_besar.dosen.KelasDosenActivity;
 import com.google.zxing.WriterException;
 
 import org.json.JSONException;
@@ -63,4 +70,14 @@ public class KartuUjian extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.optionmenu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    
 }

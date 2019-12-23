@@ -1,5 +1,6 @@
 package com.example.tugas_besar.dosen;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +9,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -63,6 +67,25 @@ public class mahasiswaKelasDosenActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.optionmenu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+        if(item.getItemId() == R.id.id_logout){
+            sharedPrefManager.saveToken("");
+            Toast.makeText(mahasiswaKelasDosenActivity.this, "Berhasil logout", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(mahasiswaKelasDosenActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void openabsen(){

@@ -1,5 +1,6 @@
 package com.example.tugas_besar.pengawas;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +21,7 @@ import com.example.tugas_besar.apihelper.BaseApiService;
 import com.example.tugas_besar.apihelper.SharedPrefManager;
 import com.example.tugas_besar.apihelper.UtilsApi;
 import com.example.tugas_besar.dosen.AbsenActivity;
+import com.example.tugas_besar.dosen.KelasDosenActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,6 +64,25 @@ public class MahasiswaKelasPengawas extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.optionmenu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+        if(item.getItemId() == R.id.id_logout){
+            sharedPrefManager.saveToken("");
+            Toast.makeText(MahasiswaKelasPengawas.this, "Berhasil logout", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MahasiswaKelasPengawas.this, LoginActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void openabsen(){
