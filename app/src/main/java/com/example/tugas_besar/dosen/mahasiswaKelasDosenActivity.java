@@ -45,6 +45,7 @@ public class mahasiswaKelasDosenActivity extends AppCompatActivity {
     RecyclerView.Adapter iAdapter;
     BaseApiService baseApiService;
     Context mContext;
+    String kelas_ids;
 
 
     @Override
@@ -114,6 +115,7 @@ public class mahasiswaKelasDosenActivity extends AppCompatActivity {
     }
 
     private void getDetailKelas(String token, int kelas_id) {
+        kelas_ids=String.valueOf(kelas_id);
         baseApiService.getDetailKelas(token, String.valueOf(kelas_id)).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -146,4 +148,13 @@ public class mahasiswaKelasDosenActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void Scan(View v){
+        Intent intent = new Intent(mahasiswaKelasDosenActivity.this, ScanActivity.class);
+        intent.putExtra("data", kelas_ids);
+        intent.putExtra("token", sharedPrefManager.getToken());
+        startActivity(intent);
+
+    }
+
 }

@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".dosen.AbsenActivity"></activity>
+        <activity android:name=".pengawas.ScanPengawasActivity"></activity>
+        <activity android:name=".dosen.ScanActivity" />
+        <activity android:name=".dosen.AbsenActivity" />
         <activity android:name=".pengawas.MahasiswaKelasPengawas" />
         <activity android:name=".pengawas.KelasPengawas" />
         <activity android:name=".mahasiswa.ListUjianActivity" />

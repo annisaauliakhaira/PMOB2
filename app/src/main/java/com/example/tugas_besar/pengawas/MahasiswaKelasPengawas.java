@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,8 @@ import com.example.tugas_besar.apihelper.SharedPrefManager;
 import com.example.tugas_besar.apihelper.UtilsApi;
 import com.example.tugas_besar.dosen.AbsenActivity;
 import com.example.tugas_besar.dosen.KelasDosenActivity;
+import com.example.tugas_besar.dosen.ScanActivity;
+import com.example.tugas_besar.dosen.mahasiswaKelasDosenActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,6 +46,8 @@ public class MahasiswaKelasPengawas extends AppCompatActivity {
     RecyclerView.Adapter iAdapter;
     BaseApiService baseApiService;
     Context mContext;
+    String kelas_ids;
+    String ruangan_ids;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +115,8 @@ public class MahasiswaKelasPengawas extends AppCompatActivity {
     }
 
     private void getDetailKelas(String token, int kelas_id, int ruangan_id) {
-
+        kelas_ids=String.valueOf(kelas_id);
+        ruangan_ids=String.valueOf(ruangan_id);
         baseApiService.getMhsPengawas(token, String.valueOf(kelas_id), String.valueOf(ruangan_id)).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -144,5 +150,14 @@ public class MahasiswaKelasPengawas extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void Scan(View v){
+        Intent intent = new Intent(MahasiswaKelasPengawas.this, ScanPengawasActivity.class);
+        intent.putExtra("data", kelas_ids);
+        intent.putExtra("data", ruangan_ids);
+        intent.putExtra("token", sharedPrefManager.getToken());
+        startActivity(intent);
+
     }
 }

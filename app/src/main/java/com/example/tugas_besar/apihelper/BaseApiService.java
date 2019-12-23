@@ -41,9 +41,13 @@ public interface BaseApiService {
     Call<ResponseBody> getClassPengawas(@Header("Authorization") String authToken);
 
     //Fungsi ini untuk mengambil data mahasiswa yang diawasi pengawas
-    @POST("api/kartu-ujian/mhsruang/{kelas_id}/{ruangan_id")
+    @POST("api/kartu-ujian/mhsruang/{kelas_id}/{ruangan_id}")
     Call<ResponseBody> getMhsPengawas(@Header("Authorization") String authToken, @Path("kelas_id") String kelas_id,
                                       @Path("ruangan_id") String ruangan_id);
 
 
+    //Verifikasi kartu ujian
+    @FormUrlEncoded
+    @POST("api/kartu-ujian/verifikasi")
+    Call<ResponseBody> verify(@Header("Authorization") String token, @Field("passcode") String passcode, @Field("kelas_id") String kelas_id);
 }

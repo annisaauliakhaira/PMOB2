@@ -87,7 +87,8 @@
             android:id="@+id/button_absen"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Absen Mahasiswa" />
+            android:text="Absen Mahasiswa"
+            android:onClick="Scan"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
