@@ -38,6 +38,14 @@ public class KartuUjian extends AppCompatActivity {
         try {
             data = new JSONObject(Objects.requireNonNull(intent.getStringExtra("data")));
             String status = data.getString("status_ujian");
+            String keterangan = "Status Tidak di Ketahui";;
+            if(status.equals("0")){
+                keterangan = "Belum Ujian";
+            }else if(status.equals("1")){
+                keterangan = "Sudah Ujian";
+            }else if(status.equals("2")){
+                keterangan = "Tidak Ujian";
+            }
             String passcode = data.getString("passcode");
             String mk = data.getString("nama_mk");
             QRGEncoder qrgEncoder = new QRGEncoder(passcode, null, QRGContents.Type.TEXT, 300);
@@ -48,7 +56,7 @@ public class KartuUjian extends AppCompatActivity {
             // Setting Bitmap to ImageView
             qrCode.setImageBitmap(bitmap);
 
-            statUjian.setText(status);
+            statUjian.setText(keterangan);
             matkul.setText(mk);
         } catch (JSONException | WriterException e) {
             e.printStackTrace();
